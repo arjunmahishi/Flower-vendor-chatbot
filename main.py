@@ -28,10 +28,11 @@ while True:
 	if session_id:
 		request.session_id = session_id
 	response_data = json.loads(request.getresponse().read())
-	response_message = response_data['result']['fulfillment']['speech']
+	response_message = response_data['result']['fulfillment']['speech'] or None
 	session_id = response_data['sessionId']
-	print " > Bot : " + response_message
-	speakT(response_message)
+	if response_message:
+		print " > Bot : " + response_message
+		speakT(response_message)
 	user_inp = raw_input(" > You : ")
 	if(user_inp == "exit"):
 		break
